@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday | Special Wishes</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary: #9aff6b;
+      --secondary: #ddd900;
+      --accent: #ff9f43;
+      --light: #544e4f;
+      --dark: #010128;
+      --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #140f1c 0%, #4b4546 100%);
+      color: var(--dark);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px 40px;
+      position: relative;
+    }
+
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 4rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 20px;
+      text-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      animation: fadeIn 1.5s ease-out;
+    }
+
+    .subtitle {
+      font-size: 1.3rem;
+      color: var(--secondary);
+      margin-bottom: 30px;
+      font-weight: 300;
+    }
+
+    /* Cake */
+    .cake-section { text-align: center; margin: 50px 0; }
+    .cake-container { position: relative; width: 250px; margin: auto; }
+
+    .cake {
+      width: 200px; height: 100px;
+      background: linear-gradient(to bottom, #ffb8d9, #ff8cc6);
+      border-radius: 10px 10px 0 0;
+      margin: auto;
+      position: relative;
+    }
+
+    .candles {
+      display: flex; justify-content: center; gap: 15px;
+      position: absolute; top: -70px; left: 50%; transform: translateX(-50%);
+    }
+
+    .candle {
+      width: 10px; height: 40px;
+      background: linear-gradient(to right, #ff9f43, #ff6b93);
+      border-radius: 5px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .flame {
+      width: 15px; height: 20px;
+      background: radial-gradient(circle, #ffcc00, #ff6600);
+      border-radius: 50% 50% 20% 20%;
+      position: absolute;
+      top: -25px; left: -3px;
+      box-shadow: 0 0 15px #ff9900;
+      animation: flicker 1s infinite;
+    }
+
+    .candle.blown .flame { opacity: 0; transform: scale(0); }
+
+    .cake-plate {
+      width: 220px; height: 15px;
+      background: linear-gradient(to right, #a29bfe, #6c5ce7);
+      border-radius: 10px; margin: auto; margin-top: 10px;
+    }
+
+    /* Blow particles */
+    .particle {
+      position: absolute;
+      font-size: 14px;
+      opacity: 0.8;
+      animation: rise 1.2s forwards;
+    }
+
+    @keyframes rise {
+      from { transform: translateY(0) scale(1); opacity: 1; }
+      to { transform: translateY(-60px) scale(0.5); opacity: 0; }
+    }
+
+    /* Message */
+    .message-section {
+      background: rgba(225, 223, 223, 0.85);
+      backdrop-filter: blur(10px);
+      padding: 30px;
+      border-radius: 15px;
+      margin: 40px auto;
+      max-width: 800px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .message-section h2 {
+      font-family: 'Playfair Display', serif;
+      color: rgb(0, 98, 18);
+      margin-bottom: 15px;
+    }
+
+    .message-content { font-size: 1.1rem; line-height: 1.6; }
+
+    /* Note */
+    .note-section { margin: 50px 0; text-align: center; }
+    .note-container { perspective: 1000px; width: 280px; margin: auto; }
+    .note {
+      position: relative;
+      width: 100%; height: 180px;
+      transform-style: preserve-3d;
+      transition: transform 1s;
+      cursor: pointer;
+      
+    }
+    .note.open { transform: rotateY(180deg); }
+
+    .note-front, .note-back {
+      position: absolute;
+      width: 100%; height: 100%;
+      border-radius: 10px; display: flex;
+      align-items: center; justify-content: center;
+      backface-visibility: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    .note-front { background: var(--gradient); color: #fff; font-weight: bold; font-size: 1.2rem; flex-direction: column; }
+    .note-back { background: #fff; color: var(--dark); transform: rotateY(180deg); padding: 20px; }
+
+    /* Music */
+    .music-control {
+      position: fixed; bottom: 20px; right: 20px;
+      width: 55px; height: 55px;
+      background: var(--gradient); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      z-index: 100;
+    }
+
+    /* Animations */
+    @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+    @keyframes flicker {
+      0%,100%{transform:scale(1) rotate(-2deg);} 50%{transform:scale(1.05) rotate(2deg);}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Happy Birthday Ema!</h1>
+      <div class="subtitle">Wishing you love, laughter & happiness</div>
+    </header>
+
+    <section class="cake-section">
+      <div class="cake-container">
+        <div class="cake"></div>
+        <div class="candles">
+          <div class="candle"><div class="flame"></div></div>
+          <div class="candle"><div class="flame"></div></div>
+          <div class="candle"><div class="flame"></div></div>
+        </div>
+        <div class="cake-plate"></div>
+      </div>
+      <p class="subtitle">Click candles to blow them out ✨</p>
+    </section>
+
+    <section class="message-section">
+      <h2>To My Picchi Friend</h2>
+      <div class="message-content">
+        <p>You’re one of the most harami person in my life 💕</p>
+        <p>May your year be filled with happiness, dreams come true & endless smiles.</p>
+        <p>Happy Birthday Picchi 🌸🎂✨</p>
+      </div>
+    </section>
+
+    <section class="note-section">
+      <div class="note-container">
+        <div class="note">
+          <div class="note-front"><i class="fas fa-envelope-open-text fa-2x"></i><span>Open Me</span></div>
+          <div class="note-back">
+            <span>Ekhono somoy ache valo hoye ja,valo hoite taka lage na</span>
+            
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>Made with <i class="fas fa-heart"></i> for your special day</footer>
+  </div>
+
+  <!-- Music -->
+  <div class="music-control"><i class="fas fa-music"></i></div>
+  <audio id="birthdayMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const musicBtn = document.querySelector('.music-control');
+    const music = document.getElementById('birthdayMusic');
+    let playing = false;
+    let firstClick = false;
+
+    musicBtn.addEventListener('click',()=>{
+      if(playing){ music.pause(); musicBtn.innerHTML='<i class="fas fa-music"></i>'; }
+      else { music.play(); musicBtn.innerHTML='<i class="fas fa-pause"></i>'; }
+      playing=!playing;
+    });
+
+    // Candles with effects
+    document.querySelectorAll('.candle').forEach(c=>{
+      c.addEventListener('click',()=>{
+        if(!c.classList.contains('blown')){
+          c.classList.add('blown');
+
+          // play whoosh sound
+          const blow = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-whoosh-1126.mp3');
+          blow.play();
+
+          // add particles
+          for(let i=0;i<5;i++){
+            let p=document.createElement('div');
+            p.className='particle';
+            p.innerHTML='✨';
+            p.style.left=(c.offsetLeft+10)+'px';
+            p.style.top=(c.offsetTop-30)+'px';
+            c.parentElement.appendChild(p);
+            setTimeout(()=>p.remove(),1200);
+          }
+
+          // play birthday song only on first click
+          if(!firstClick){
+            music.play();
+            musicBtn.innerHTML='<i class="fas fa-pause"></i>';
+            playing=true;
+            firstClick=true;
+          }
+        }
+      });
+    });
+
+    // Note flip
+    document.querySelector('.note').addEventListener('click',e=>{
+      e.currentTarget.classList.toggle('open');
+    });
+  </script>
+</body>
+</html>
